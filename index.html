@@ -230,21 +230,11 @@ const urls = {
 
 function openShopee(type) {
     const target = urls[type];
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-    if (isMobile) {
-        window.location.href = target.app;
-        const startTime = Date.now();
-        setTimeout(function() {
-            if (Date.now() - startTime < 1800) {
-                window.location.href = target.web;
-            }
-        }, 1200);
-    } else {
-        const newWindow = window.open();
-        newWindow.opener = null;
-        newWindow.location = target.web;
-    }
+    if (!target || !target.web) return;
+
+    // 使用標準 HTTPS 連結，避免部分手機或社群 App 內建瀏覽器
+    // 在喚起 shopee:// 時卡住。若手機已安裝蝦皮，系統會自行處理開啟 App。
+    window.location.assign(target.web);
 }
 
 function calculateSize() {
