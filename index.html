@@ -157,9 +157,6 @@
         .color-2 { background-color: #b55d6c; } /* 綵設品牌粉 */
         .color-3 { background-color: #c96f7c; } 
         .color-4 { background-color: #d8818e; }
-        .color-5 { background-color: #4a6fa5; } /* 牛仔系 */
-        .color-6 { background-color: #3b5a84; }
-        
         .buy-btn:hover {
             opacity: 0.9;
         }
@@ -194,8 +191,6 @@
             <a onclick="openShopee('cropped')" class="buy-btn color-2" id="btn_cropped">🛒 搶購【清涼七分褲】</a>
             <a onclick="openShopee('pants')" class="buy-btn color-3" id="btn_pants">🛒 搶購【清涼長褲】</a>
             <a onclick="openShopee('vFlare')" class="buy-btn color-4" id="btn_vFlare">🛒 搶購【清涼V喇褲】</a>
-            <a onclick="openShopee('denimShorts')" class="buy-btn color-5" id="btn_denimShorts">🛒 搶購【冰動牛仔短褲】</a>
-            <a onclick="openShopee('denimStraight')" class="buy-btn color-6" id="btn_denimStraight">🛒 搶購【冰動牛仔直筒褲】</a>
         </div>
     </div>
 </div>
@@ -217,14 +212,6 @@ const urls = {
     vFlare: {
         web: "https://shopee.tw/product/19327631/26004059233",
         app: "shopee://product/19327631/26004059233"
-    },
-    denimShorts: {
-        web: "https://shopee.tw/product/19327631/29007359820",
-        app: "shopee://product/19327631/29007359820"
-    },
-    denimStraight: {
-        web: "https://shopee.tw/product/19327631/26256444370",
-        app: "shopee://product/19327631/26256444370"
     }
 };
 
@@ -272,13 +259,11 @@ function calculateSize() {
     
     const sizeNum = size.split(' ')[0];
     
-    // 動態更新 6 個按鈕上的尺碼標籤
+    // 動態更新 4 個清涼系列按鈕上的尺碼標籤
     document.getElementById('btn_straight').innerHTML = `🛒 搶購【清涼小直筒】直達 ${sizeNum} 號`;
     document.getElementById('btn_cropped').innerHTML = `🛒 搶購【清涼七分褲】直達 ${sizeNum} 號`;
     document.getElementById('btn_pants').innerHTML = `🛒 搶購【清涼長褲】直達 ${sizeNum} 號`;
     document.getElementById('btn_vFlare').innerHTML = `🛒 搶購【清涼V喇褲】直達 ${sizeNum} 號`;
-    document.getElementById('btn_denimShorts').innerHTML = `🛒 搶購【冰動牛仔短褲】直達 ${sizeNum} 號`;
-    document.getElementById('btn_denimStraight').innerHTML = `🛒 搶購【冰動牛仔直筒褲】直達 ${sizeNum} 號`;
     
     resultBox.style.display = 'block';
 }
