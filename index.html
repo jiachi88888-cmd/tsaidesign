@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>綵設 Tsaidesign | 珍瘦褲黃金尺碼計算機</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            background-color: #faf6f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(220, 180, 180, 0.3);
+            padding: 30px 24px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 20px;
+            border: 1px solid #f2e4e4;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #b55d6c;
+            margin-bottom: 5px;
+            letter-spacing: 2px;
+        }
+        .subtitle {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 25px;
+        }
+        h2 {
+            font-size: 20px;
+            color: #4a4a4a;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            outline: none;
+        }
+        input:focus {
+            border-color: #b55d6c;
+            box-shadow: 0 0 8px rgba(181, 93, 108, 0.2);
+        }
+        button {
+            width: 100%;
+            background-color: #b55d6c;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #9c4a58;
+        }
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #fdf8f8;
+            border-radius: 12px;
+            border-left: 5px solid #b55d6c;
+            display: none;
+            text-align: left;
+            animation: fadeIn 0.5s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-title {
+            font-weight: bold;
+            color: #b55d6c;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        .result-desc {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .buy-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            background-color: #d0011b; /* 蝦皮標誌性紅色 */
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 15px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .buy-btn:hover {
+            background-color: #b00116;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo">綵設 Tsaidesign</div>
+    <div class="subtitle">視覺瞬減 5 公斤的秘密</div>
+    <h2>珍瘦褲 · 黃金尺碼計算機</h2>
+    
+    <div class="input-group">
+        <label for="height">您的身高 (cm)</label>
+        <input type="number" id="height" placeholder="例如：160" required>
+    </div>
+    
+    <div class="input-group">
+        <label for="weight">您的體重 (kg)</label>
+        <input type="number" id="weight" placeholder="例如：60" required>
+    </div>
+    
+    <button onclick="calculateSize()">一鍵分析我的專屬尺碼</button>
+    
+    <div class="result-box" id="resultBox">
+        <div class="result-title" id="sizeResult">推薦您的尺碼：1 號</div>
+        <div class="result-desc" id="descResult"></div>
+        <a onclick="openShopee()" class="buy-btn" id="buyLink">點我立即搶購 珍瘦褲（現貨免運中）</a>
+    </div>
+</div>
+
+<script>
+// 智慧喚起蝦皮 APP 功能
+function openShopee() {
+    const appUrl = "shopee://product/19327631/51962386738";
+    const webUrl = "https://shopee.tw/product/19327631/51962386738/";
+    
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // 手機版：優先直接叫起蝦皮 APP 
+        window.location.href = appUrl;
+        
+        // 如果 1 秒內沒叫起成功（可能沒裝APP），退回網頁版網址
+        const startTime = Date.now();
+        setTimeout(function() {
+            if (Date.now() - startTime < 1500) {
+                window.location.href = webUrl;
+            }
+        }, 1000);
+    } else {
+        // 電腦版：直接新開網頁視窗
+        window.open(webUrl, '_blank');
+    }
+}
+
+function calculateSize() {
+    const height = parseFloat(document.getElementById('height').value);
+    const weight = parseFloat(document.getElementById('weight').value);
+    
+    if (!height || !weight) {
+        alert('請輸入完整的身高與體重喔！');
+        return;
+    }
+    
+    const resultBox = document.getElementById('resultBox');
+    const sizeResult = document.getElementById('sizeResult');
+    const descResult = document.getElementById('descResult');
+    const buyLink = document.getElementById('buyLink');
+    
+    let size = '';
+    let desc = '';
+
+    // 符合您修正後的 10:18 超彈性黃金尺碼邏輯（1號：S-M / 2號：L-XL / 3號：2XL-3XL / 4號：4XL-5XL）
+    if (weight < 55) {
+        size = '1 號（適合 S - M 穿著）';
+        desc = '✨ <strong>極致完美修飾！</strong> 我們的珍瘦褲擁有 10:18 的超強黃金彈性。1 號褲能完美服貼您的腰腹，高腰收腹不卡肚、不勒肉，穿上身視覺一秒顯瘦，活動超自在！';
+    } else if (weight >= 55 && weight < 71) {
+        size = '2 號（適合 L - XL 穿著）';
+        desc = '✨ <strong>蜜大腿、馬鞍肉一秒神隱！</strong> 2 號具備極致包覆力，雖然彈性極大卻完全不垮，幫您把腹部與大腿贅肉溫柔收緊，拉長腿部線條，久坐不卡襠，怎麼蹲都舒服！';
+    } else if (weight >= 71 && weight < 86) {
+        size = '3 號（適合 2XL - 3XL 穿著）';
+        desc = '✨ <strong>全天候零束縛的舒適魔法！</strong> 彈力大升級，針對下半身豐滿身型量身打造。高彈性剪裁完美貼合、不擠壓肉肉，蹲、跑、跳都輕鬆無阻，穿出高挑好比例！';
+    } else {
+        size = '4 號（適合 4XL - 5XL 穿著）';
+        desc = '✨ <strong>極限彈力包覆，無壓力顯瘦神褲！</strong> 擁有驚人的拉伸彈性，舒適度滿分！360 度完美修飾身型，穿上去腰腹不緊繃，讓您整天都輕盈有自信，穿出完美比例！';
+    }
+    
+    sizeResult.innerHTML = `推薦您的尺碼：${size}`;
+    descResult.innerHTML = desc;
+    
+    // 更新按鈕上的字
+    buyLink.innerHTML = `點我立即搶購 珍瘦褲 ${size.split('（')[0]}（現貨免運中）`;
+    
+    resultBox.style.display = 'block';
+}
+</script>
+
+</body>
+</html>
