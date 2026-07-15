@@ -199,8 +199,8 @@
     <div class="input-group">
         <label for="fitPreference">您喜歡的穿著感</label>
         <select id="fitPreference">
-            <option value="comfort" selected>舒適自在（推薦）</option>
-            <option value="fitted">合身修飾</option>
+            <option value="fitted" selected>合身顯瘦（推薦）</option>
+            <option value="comfort">舒適自在</option>
         </select>
     </div>
     
@@ -298,7 +298,7 @@ function calculateSize() {
         const selected = preference === 'fitted' ? exactMatches[0] : exactMatches[exactMatches.length - 1];
         recommendedNumber = selected.number;
         const choices = exactMatches.map(size => `${size.number}號`).join('、');
-        const fitText = preference === 'fitted' ? '合身修飾' : '舒適自在';
+        const fitText = preference === 'fitted' ? '合身顯瘦' : '舒適自在';
         desc = `✨ 您的腰圍與臀圍同時符合 <strong>${choices}</strong>。依照「${fitText}」偏好，推薦 <strong>${recommendedNumber}號</strong>。`;
     } else if (exactMatches.length === 1) {
         recommendedNumber = exactMatches[0].number;
