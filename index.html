@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>綵設 Tsaidesign | 專屬黃金尺碼計算機</title>
+    <title>綵設 Tsaidesign | 腰臀智慧尺碼計算機</title>
     <style>
         * {
             box-sizing: border-box;
@@ -53,23 +53,37 @@
         }
         label {
             display: block;
-            font-size: 14px;
+            font-size: 16px;
             color: #666;
             margin-bottom: 8px;
-            font-weight: 500;
+            font-weight: 600;
         }
-        input {
+        input,
+        select {
             width: 100%;
+            min-height: 50px;
             padding: 12px 16px;
             border: 1px solid #ddd;
             border-radius: 10px;
-            font-size: 16px;
+            background-color: #fff;
+            font-size: 18px;
             transition: all 0.3s;
             outline: none;
         }
-        input:focus {
+        input:focus,
+        select:focus {
             border-color: #b55d6c;
             box-shadow: 0 0 8px rgba(181, 93, 108, 0.2);
+        }
+        .measurement-guide {
+            margin: -8px 0 22px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background-color: #fff8f8;
+            color: #765b61;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: left;
         }
         button {
             width: 100%;
@@ -78,7 +92,7 @@
             border: none;
             padding: 14px;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
             transition: background 0.3s;
@@ -104,11 +118,11 @@
         .result-title {
             font-weight: bold;
             color: #b55d6c;
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 8px;
         }
         .result-desc {
-            font-size: 14px;
+            font-size: 16px;
             color: #555;
             line-height: 1.5;
             margin-bottom: 20px;
@@ -166,26 +180,37 @@
 
 <div class="container">
     <div class="logo">綵設 Tsaidesign</div>
-    <div class="subtitle">視覺瞬減 5 公斤的秘密</div>
-    <h2>黃金尺碼 3秒智慧計算機</h2>
-    
-    <div class="input-group">
-        <label for="height">您的身高 (cm)</label>
-        <input type="number" id="height" placeholder="例如：160" required>
+    <div class="subtitle">四面高彈布料・10 cm 可延展至 18 cm</div>
+    <h2>腰臀精準尺碼計算機</h2>
+    <div class="measurement-guide">
+        請填寫身體整圈尺寸：腰圍量褲頭穿著位置，臀圍量臀部最豐滿處。皮尺貼身即可，不要拉緊。
     </div>
     
     <div class="input-group">
-        <label for="weight">您的體重 (kg)</label>
-        <input type="number" id="weight" placeholder="例如：60" required>
+        <label for="waist">您的腰圍（cm）</label>
+        <input type="number" id="waist" inputmode="decimal" min="1" step="0.1" placeholder="例如：78" required>
     </div>
     
-    <button onclick="calculateSize()">一鍵分析我的專屬尺碼</button>
+    <div class="input-group">
+        <label for="hip">您的臀圍（cm）</label>
+        <input type="number" id="hip" inputmode="decimal" min="1" step="0.1" placeholder="例如：98" required>
+    </div>
+
+    <div class="input-group">
+        <label for="fitPreference">您喜歡的穿著感</label>
+        <select id="fitPreference">
+            <option value="comfort" selected>舒適自在（推薦）</option>
+            <option value="fitted">合身修飾</option>
+        </select>
+    </div>
     
-    <div class="result-box" id="resultBox">
+    <button type="button" onclick="calculateSize()">一鍵分析我的專屬尺碼</button>
+    
+    <div class="result-box" id="resultBox" aria-live="polite">
         <div class="result-title" id="sizeResult">推薦您的尺碼：1 號</div>
         <div class="result-desc" id="descResult"></div>
         
-        <div class="btn-list-title">🛍️ 點擊下方按鈕直達蝦皮賣場（尺寸已為您鎖定）</div>
+        <div class="btn-list-title">🛍️ 點擊下方按鈕直達蝦皮賣場，請選擇推薦的號碼</div>
         <div class="btn-group">
             <a onclick="openShopee('straight')" class="buy-btn color-1" id="btn_straight">🛒 搶購【清涼小直筒】</a>
             <a onclick="openShopee('cropped')" class="buy-btn color-2" id="btn_cropped">🛒 搶購【清涼七分褲】</a>
@@ -224,12 +249,38 @@ function openShopee(type) {
     window.location.assign(target.web);
 }
 
+const sizeData = [
+    { number: 1, waist: [60, 73], hip: [84, 91] },
+    { number: 2, waist: [71, 84], hip: [92, 103] },
+    { number: 3, waist: [84, 102], hip: [102, 115] },
+    { number: 4, waist: [97, 115], hip: [110, Infinity] }
+];
+
+function fits(size, waist, hip) {
+    return waist >= size.waist[0] && waist <= size.waist[1]
+        && hip >= size.hip[0] && hip <= size.hip[1];
+}
+
+function smallestAccommodatingSize(value, measurement) {
+    const matching = sizeData.filter(size => {
+        const range = size[measurement];
+        return value >= range[0] && value <= range[1];
+    });
+
+    if (matching.length) return matching[0].number;
+    if (value < sizeData[0][measurement][0]) return 1;
+
+    const nextSize = sizeData.find(size => value <= size[measurement][1]);
+    return nextSize ? nextSize.number : 4;
+}
+
 function calculateSize() {
-    const height = parseFloat(document.getElementById('height').value);
-    const weight = parseFloat(document.getElementById('weight').value);
+    const waist = parseFloat(document.getElementById('waist').value);
+    const hip = parseFloat(document.getElementById('hip').value);
+    const preference = document.getElementById('fitPreference').value;
     
-    if (!height || !weight) {
-        alert('請輸入完整的身高與體重喔！');
+    if (!waist || !hip || waist <= 0 || hip <= 0) {
+        alert('請輸入完整的腰圍與臀圍喔！');
         return;
     }
     
@@ -237,33 +288,53 @@ function calculateSize() {
     const sizeResult = document.getElementById('sizeResult');
     const descResult = document.getElementById('descResult');
     
-    let size = '';
-    let desc = '';
+    const exactMatches = sizeData.filter(size => fits(size, waist, hip));
+    const waistSize = smallestAccommodatingSize(waist, 'waist');
+    const hipSize = smallestAccommodatingSize(hip, 'hip');
+    let recommendedNumber;
+    let desc;
 
-    if (weight < 55) {
-        size = '1 號 (S-M)';
-        desc = '✨ <strong>極致完美修飾！</strong> 我們的神褲擁有 10:18 的超強黃金彈性。1 號褲能完美服貼您的腰腹，高腰收腹不卡肚、不勒肉，穿上身視覺一秒顯瘦，活動超自在！';
-    } else if (weight >= 55 && weight < 71) {
-        size = '2 號 (L-XL)';
-        desc = '✨ <strong>蜜大腿、馬鞍肉一秒神隱！</strong> 2 號具備極致包覆力，雖然彈性極大卻完全不垮，幫您把腹部與大腿贅肉溫柔收緊，拉長腿部線條，久坐不卡襠，怎麼蹲都舒服！';
-    } else if (weight >= 71 && weight < 86) {
-        size = '3 號 (2XL-3XL)';
-        desc = '✨ <strong>全天候零束縛的舒適魔法！</strong> 彈力大升級，針對下半身豐滿身型量身打造。高彈性剪裁完美貼合、不擠壓肉肉，蹲、跑、跳都輕鬆無阻，穿出高挑好比例！';
+    if (exactMatches.length > 1) {
+        const selected = preference === 'fitted' ? exactMatches[0] : exactMatches[exactMatches.length - 1];
+        recommendedNumber = selected.number;
+        const choices = exactMatches.map(size => `${size.number}號`).join('、');
+        const fitText = preference === 'fitted' ? '合身修飾' : '舒適自在';
+        desc = `✨ 您的腰圍與臀圍同時符合 <strong>${choices}</strong>。依照「${fitText}」偏好，推薦 <strong>${recommendedNumber}號</strong>。`;
+    } else if (exactMatches.length === 1) {
+        recommendedNumber = exactMatches[0].number;
+        desc = `✨ 您的腰圍與臀圍都落在 <strong>${recommendedNumber}號</strong> 的適穿範圍，能兼顧包覆與活動舒適度。`;
     } else {
-        size = '4 號 (4XL-5XL)';
-        desc = '✨ <strong>極限彈力包覆，無壓力顯瘦神褲！</strong> 擁有驚人的拉伸彈性，舒適度滿分！360 度完美修飾身型，穿上去腰腹不緊繃，讓您整天都輕盈有自信，穿出完美比例！';
+        recommendedNumber = Math.max(waistSize, hipSize);
+
+        if (hipSize > waistSize) {
+            desc = `✨ 您的臀圍需要較大的尺碼，已優先照顧臀部活動空間，推薦 <strong>${recommendedNumber}號</strong>；腰頭可能稍微寬鬆。`;
+        } else if (waistSize > hipSize) {
+            desc = `✨ 您的腰圍需要較大的尺碼，已優先照顧腰腹舒適度，推薦 <strong>${recommendedNumber}號</strong>；臀腿可能稍微寬鬆。`;
+        } else {
+            desc = `✨ 您的腰臀尺寸接近 <strong>${recommendedNumber}號</strong>，建議選擇 ${recommendedNumber}號，穿著會較舒適。`;
+        }
     }
+
+    const notices = [];
+    if (waist < 60) notices.push('腰圍低於目前1號標準範圍，1號腰頭可能較寬鬆');
+    if (hip < 84) notices.push('臀圍低於目前1號標準範圍，1號臀腿可能較寬鬆');
+    if (waist > 115) notices.push('腰圍已超出目前標準資料範圍，建議購買前先聯繫客服確認');
+    if (hip > 123) notices.push('臀圍超過123 cm，4號仍具高彈性，但建議購買前先聯繫客服確認');
+
+    if (notices.length) {
+        desc += `<br><br>提醒：${notices.join('；')}。`;
+    }
+
+    desc += '<br><br>四款皆為四面高彈布料，腿部鬆緊差異不另外影響尺碼判斷。';
     
-    sizeResult.innerHTML = `推薦您的尺碼：${size}`;
+    sizeResult.textContent = `推薦您的尺碼：${recommendedNumber}號`;
     descResult.innerHTML = desc;
     
-    const sizeNum = size.split(' ')[0];
-    
     // 動態更新 4 個清涼系列按鈕上的尺碼標籤
-    document.getElementById('btn_straight').innerHTML = `🛒 搶購【清涼小直筒】直達 ${sizeNum} 號`;
-    document.getElementById('btn_cropped').innerHTML = `🛒 搶購【清涼七分褲】直達 ${sizeNum} 號`;
-    document.getElementById('btn_pants').innerHTML = `🛒 搶購【清涼長褲】直達 ${sizeNum} 號`;
-    document.getElementById('btn_vFlare').innerHTML = `🛒 搶購【清涼V喇褲】直達 ${sizeNum} 號`;
+    document.getElementById('btn_straight').textContent = `🛒 搶購【清涼小直筒】直達 ${recommendedNumber}號`;
+    document.getElementById('btn_cropped').textContent = `🛒 搶購【清涼七分褲】直達 ${recommendedNumber}號`;
+    document.getElementById('btn_pants').textContent = `🛒 搶購【清涼長褲】直達 ${recommendedNumber}號`;
+    document.getElementById('btn_vFlare').textContent = `🛒 搶購【清涼V喇褲】直達 ${recommendedNumber}號`;
     
     resultBox.style.display = 'block';
 }
