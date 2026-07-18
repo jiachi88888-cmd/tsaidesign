@@ -139,6 +139,11 @@
             overflow-y: auto;
             padding-right: 4px;
         }
+        .product-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
         /* 美化滾動條 */
         .btn-group::-webkit-scrollbar {
             width: 4px;
@@ -166,6 +171,9 @@
         .color-2 { background-color: #b55d6c; } /* 綵設品牌粉 */
         .color-3 { background-color: #c96f7c; } 
         .color-4 { background-color: #d8818e; }
+        .color-5 { background-color: #4a6fa5; } /* 牛仔系 */
+        .color-6 { background-color: #3b5a84; }
+        .hidden { display: none !important; }
         .buy-btn:hover {
             opacity: 0.9;
         }
@@ -179,18 +187,26 @@
     <div class="measurement-guide">
         請填寫身體整圈尺寸：腰圍量褲頭穿著位置，臀圍量臀部最豐滿處。皮尺貼身即可，不要拉緊。
     </div>
+
+    <div class="input-group">
+        <label for="series">請先選擇商品系列</label>
+        <select id="series" onchange="updateSeriesUI()">
+            <option value="cooling" selected>清涼神褲系列（4個尺碼）</option>
+            <option value="denim">清涼牛仔系列（3個尺碼）</option>
+        </select>
+    </div>
     
     <div class="input-group">
-        <label for="waist">您的腰圍（cm）</label>
+        <label for="waist" id="waistLabel">您的腰圍（cm）</label>
         <input type="number" id="waist" inputmode="decimal" min="1" step="0.1" placeholder="例如：78" required>
     </div>
     
     <div class="input-group">
-        <label for="hip">您的臀圍（cm）</label>
+        <label for="hip" id="hipLabel">您的臀圍（cm）</label>
         <input type="number" id="hip" inputmode="decimal" min="1" step="0.1" placeholder="例如：98" required>
     </div>
 
-    <div class="input-group">
+    <div class="input-group" id="fitPreferenceGroup">
         <label for="fitPreference">您喜歡的穿著感</label>
         <select id="fitPreference">
             <option value="fitted" selected>合身顯瘦（推薦）</option>
@@ -206,10 +222,16 @@
         
         <div class="btn-list-title">🛍️ 點擊下方按鈕直達蝦皮賣場，請選擇推薦的號碼</div>
         <div class="btn-group">
+            <div id="coolingButtons" class="product-buttons">
             <a onclick="openShopee('straight')" class="buy-btn color-1" id="btn_straight">🛒 搶購【清涼小直筒】</a>
             <a onclick="openShopee('cropped')" class="buy-btn color-2" id="btn_cropped">🛒 搶購【清涼七分褲】</a>
             <a onclick="openShopee('pants')" class="buy-btn color-3" id="btn_pants">🛒 搶購【清涼長褲】</a>
             <a onclick="openShopee('vFlare')" class="buy-btn color-4" id="btn_vFlare">🛒 搶購【清涼V喇褲】</a>
+            </div>
+            <div id="denimButtons" class="product-buttons hidden">
+            <a onclick="openShopee('denimShorts')" class="buy-btn color-5" id="btn_denimShorts">🛒 搶購【冰動牛仔短褲】</a>
+            <a onclick="openShopee('denimStraight')" class="buy-btn color-6" id="btn_denimStraight">🛒 搶購【冰動牛仔直筒褲】</a>
+            </div>
         </div>
     </div>
 </div>
@@ -231,6 +253,14 @@ const urls = {
     vFlare: {
         web: "https://shopee.tw/product/19327631/26004059233",
         app: "shopee://product/19327631/26004059233"
+    },
+    denimShorts: {
+        web: "https://shopee.tw/product/19327631/29007359820",
+        app: "shopee://product/19327631/29007359820"
+    },
+    denimStraight: {
+        web: "https://shopee.tw/product/19327631/26256444370",
+        app: "shopee://product/19327631/26256444370"
     }
 };
 
@@ -243,19 +273,34 @@ function openShopee(type) {
     window.location.assign(target.web);
 }
 
-const sizeData = [
-    { number: 1, waist: [60, 73], hip: [84, 91] },
-    { number: 2, waist: [71, 84], hip: [92, 103] },
-    { number: 3, waist: [84, 102], hip: [102, 115] },
-    { number: 4, waist: [97, 115], hip: [110, Infinity] }
-];
+const seriesConfig = {
+    cooling: {
+        unit: 'cm',
+        hasPreference: true,
+        data: [
+            { number: 1, waist: [60, 73], hip: [84, 91], flatWaistHalf: 34, flatHipHalf: 45 },
+            { number: 2, waist: [71, 84], hip: [92, 103], flatWaistHalf: 37, flatHipHalf: 48 },
+            { number: 3, waist: [84, 102], hip: [102, 115], flatWaistHalf: 40, flatHipHalf: 54 },
+            { number: 4, waist: [97, 115], hip: [110, Infinity], flatWaistHalf: 44, flatHipHalf: 58 }
+        ]
+    },
+    denim: {
+        unit: '吋',
+        hasPreference: false,
+        data: [
+            { number: 1, waist: [23, 28], hip: [34, 38], flatWaistHalf: 13.5, flatHipHalf: 22 },
+            { number: 2, waist: [29, 35], hip: [39, 44], flatWaistHalf: 14.5, flatHipHalf: 23 },
+            { number: 3, waist: [36, 42], hip: [43, 48], flatWaistHalf: 16, flatHipHalf: 25 }
+        ]
+    }
+};
 
 function fits(size, waist, hip) {
     return waist >= size.waist[0] && waist <= size.waist[1]
         && hip >= size.hip[0] && hip <= size.hip[1];
 }
 
-function smallestAccommodatingSize(value, measurement) {
+function smallestAccommodatingSize(value, measurement, sizeData) {
     const matching = sizeData.filter(size => {
         const range = size[measurement];
         return value >= range[0] && value <= range[1];
@@ -265,13 +310,32 @@ function smallestAccommodatingSize(value, measurement) {
     if (value < sizeData[0][measurement][0]) return 1;
 
     const nextSize = sizeData.find(size => value <= size[measurement][1]);
-    return nextSize ? nextSize.number : 4;
+    return nextSize ? nextSize.number : sizeData[sizeData.length - 1].number;
+}
+
+function updateSeriesUI() {
+    const series = document.getElementById('series').value;
+    const isDenim = series === 'denim';
+
+    document.getElementById('waistLabel').textContent = `您的腰圍（${isDenim ? '吋' : 'cm'}）`;
+    document.getElementById('hipLabel').textContent = `您的臀圍（${isDenim ? '吋' : 'cm'}）`;
+    document.getElementById('waist').placeholder = isDenim ? '例如：32' : '例如：78';
+    document.getElementById('hip').placeholder = isDenim ? '例如：42' : '例如：98';
+    document.getElementById('waist').value = '';
+    document.getElementById('hip').value = '';
+    document.getElementById('fitPreferenceGroup').classList.toggle('hidden', isDenim);
+    document.getElementById('coolingButtons').classList.toggle('hidden', isDenim);
+    document.getElementById('denimButtons').classList.toggle('hidden', !isDenim);
+    document.getElementById('resultBox').style.display = 'none';
 }
 
 function calculateSize() {
+    const series = document.getElementById('series').value;
+    const config = seriesConfig[series];
+    const sizeData = config.data;
     const waist = parseFloat(document.getElementById('waist').value);
     const hip = parseFloat(document.getElementById('hip').value);
-    const preference = document.getElementById('fitPreference').value;
+    const preference = config.hasPreference ? document.getElementById('fitPreference').value : 'fitted';
     
     if (!waist || !hip || waist <= 0 || hip <= 0) {
         alert('請輸入完整的腰圍與臀圍喔！');
@@ -283,20 +347,24 @@ function calculateSize() {
     const descResult = document.getElementById('descResult');
     
     const exactMatches = sizeData.filter(size => fits(size, waist, hip));
-    const waistSize = smallestAccommodatingSize(waist, 'waist');
-    const hipSize = smallestAccommodatingSize(hip, 'hip');
+    const waistSize = smallestAccommodatingSize(waist, 'waist', sizeData);
+    const hipSize = smallestAccommodatingSize(hip, 'hip', sizeData);
     let recommendedNumber;
     let desc;
 
     if (exactMatches.length > 1) {
-        const selected = preference === 'fitted' ? exactMatches[0] : exactMatches[exactMatches.length - 1];
+        const selected = config.hasPreference && preference === 'comfort'
+            ? exactMatches[exactMatches.length - 1]
+            : exactMatches[0];
         recommendedNumber = selected.number;
         const choices = exactMatches.map(size => `${size.number}號`).join('、');
         const fitText = preference === 'fitted' ? '合身顯瘦' : '舒適自在';
         desc = `✨ 您的腰圍與臀圍同時符合 <strong>${choices}</strong>。依照「${fitText}」偏好，推薦 <strong>${recommendedNumber}號</strong>。`;
     } else if (exactMatches.length === 1) {
         recommendedNumber = exactMatches[0].number;
-        desc = `✨ 您的腰圍與臀圍都落在 <strong>${recommendedNumber}號</strong> 的適穿範圍，能兼顧包覆與活動舒適度。`;
+        desc = series === 'denim'
+            ? `✨ 您的腰圍與臀圍都落在 <strong>${recommendedNumber}號</strong> 的適穿範圍，闊腿版型能保留舒適活動空間。`
+            : `✨ 您的腰圍與臀圍都落在 <strong>${recommendedNumber}號</strong> 的適穿範圍，能兼顧包覆與活動舒適度。`;
     } else {
         recommendedNumber = Math.max(waistSize, hipSize);
 
@@ -310,25 +378,38 @@ function calculateSize() {
     }
 
     const notices = [];
-    if (waist < 60) notices.push('腰圍低於目前1號標準範圍，1號腰頭可能較寬鬆');
-    if (hip < 84) notices.push('臀圍低於目前1號標準範圍，1號臀腿可能較寬鬆');
-    if (waist > 115) notices.push('腰圍已超出目前標準資料範圍，建議購買前先聯繫客服確認');
-    if (hip > 123) notices.push('臀圍超過123 cm，4號仍具高彈性，但建議購買前先聯繫客服確認');
+    if (series === 'denim') {
+        if (waist < 23) notices.push('腰圍低於目前1號標準範圍，1號腰頭可能較寬鬆');
+        if (hip < 34) notices.push('臀圍低於目前1號標準範圍，1號臀部可能較寬鬆');
+        if (waist > 42) notices.push('腰圍超過42吋，已超出目前標準資料範圍，建議購買前先聯繫客服確認');
+        if (hip > 48) notices.push('臀圍超過48吋，已超出目前標準資料範圍，建議購買前先聯繫客服確認');
+    } else {
+        if (waist < 60) notices.push('腰圍低於目前1號標準範圍，1號腰頭可能較寬鬆');
+        if (hip < 84) notices.push('臀圍低於目前1號標準範圍，1號臀腿可能較寬鬆');
+        if (waist > 115) notices.push('腰圍已超出目前標準資料範圍，建議購買前先聯繫客服確認');
+        if (hip > 123) notices.push('臀圍超過123 cm，4號仍具高彈性，但建議購買前先聯繫客服確認');
+    }
 
     if (notices.length) {
         desc += `<br><br>提醒：${notices.join('；')}。`;
     }
 
-    desc += '<br><br>四款皆為四面高彈布料，腿部鬆緊差異不另外影響尺碼判斷。';
+    desc += series === 'denim'
+        ? '<br><br>兩款皆為闊腿版型，腿部寬鬆度不另外影響尺碼判斷。'
+        : '<br><br>四款皆為四面高彈布料，腿部鬆緊差異不另外影響尺碼判斷。';
     
     sizeResult.textContent = `推薦您的尺碼：${recommendedNumber}號`;
     descResult.innerHTML = desc;
     
-    // 動態更新 4 個清涼系列按鈕上的尺碼標籤
-    document.getElementById('btn_straight').textContent = `🛒 搶購【清涼小直筒】直達 ${recommendedNumber}號`;
-    document.getElementById('btn_cropped').textContent = `🛒 搶購【清涼七分褲】直達 ${recommendedNumber}號`;
-    document.getElementById('btn_pants').textContent = `🛒 搶購【清涼長褲】直達 ${recommendedNumber}號`;
-    document.getElementById('btn_vFlare').textContent = `🛒 搶購【清涼V喇褲】直達 ${recommendedNumber}號`;
+    if (series === 'denim') {
+        document.getElementById('btn_denimShorts').textContent = `🛒 搶購【冰動牛仔短褲】直達 ${recommendedNumber}號`;
+        document.getElementById('btn_denimStraight').textContent = `🛒 搶購【冰動牛仔直筒褲】直達 ${recommendedNumber}號`;
+    } else {
+        document.getElementById('btn_straight').textContent = `🛒 搶購【清涼小直筒】直達 ${recommendedNumber}號`;
+        document.getElementById('btn_cropped').textContent = `🛒 搶購【清涼七分褲】直達 ${recommendedNumber}號`;
+        document.getElementById('btn_pants').textContent = `🛒 搶購【清涼長褲】直達 ${recommendedNumber}號`;
+        document.getElementById('btn_vFlare').textContent = `🛒 搶購【清涼V喇褲】直達 ${recommendedNumber}號`;
+    }
     
     resultBox.style.display = 'block';
 }
