@@ -1,5 +1,7 @@
 # Hook Template
 
+建立 Hook 前，必須先讀取 `Hook-Style-DNA.md` 與所有 `【已核准】` Hook，再讀取適用商品資料。以下格式用於整理每一個候選 Hook。
+
 每一個 Hook 固定使用以下格式：
 
 # Hook 編號
