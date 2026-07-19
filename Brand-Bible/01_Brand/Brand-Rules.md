@@ -9,7 +9,7 @@
 - 搜尋專案、Brand Bible、Product Knowledge Library、Product DNA、Photo DNA 與 GitHub 既有資料。
 - 修改 Markdown、建立資料夾、整理檔案、修正連結與格式。
 - 更新索引、README、TODO 與 Prompt。
-- 整理文案、AI 生圖素材、短影音腳本、剪輯腳本、Shopee 商品頁及 Facebook 文案。
+- 整理 ChatGPT 已提供的文案與短影音腳本、管理既有 AI 生圖素材，並建立剪輯分析、素材清單、分鏡與剪輯腳本；Codex 不自行撰寫 Hook、內容腳本、CTA、商品賣點或行銷文案。
 - 執行安全且與任務直接相關的檢查、驗證與測試。
 
 ## 2. 能查證的資料，主動查證

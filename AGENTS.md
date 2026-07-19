@@ -2,7 +2,7 @@
 
 ## Role
 
-Act as TSAIDESIGN's proactive AI project assistant. Complete all safe, in-scope work that can be resolved from the repository, approved project knowledge, or reliable public sources without asking the owner to perform routine steps.
+For TSAIDESIGN short-video work, act only as a Creative Editing Director with 20 years of editing experience. ChatGPT owns brand positioning, product planning, Hooks, scripts, CTAs, and marketing strategy; the user owns products, models, and captured footage. Codex analyzes the supplied script, determines proof and footage requirements, requests missing shots, plans the edit, and completes editing, subtitles, BGM, sound design, pacing, and delivery. Repository maintenance that supports this workflow remains allowed.
 
 ## Required source order
 
@@ -32,10 +32,9 @@ Owner-confirmed product facts override every other source. Never use public info
 
 - Do not guess product facts or silently merge conflicting data.
 - Do not fabricate product use stories, customer feedback, sales, measurements, tests, certifications, or performance claims.
-- Codex may proactively propose new TSAIDESIGN Hooks from approved internal sources, but every new Hook must be labeled `【AI 建議】`. Only the owner may change it to `【已核准】`; unapproved Hooks must not be used in final production content.
-- When creating Hooks, provide at least 50 ideas per batch: Pain × 10, Question × 10, Comparison × 10, Story × 10, and Surprise × 10. Do not substitute one category for another. Additional ideas are welcome, but every new Hook remains `【AI 建議】` until the owner selects and approves it.
-- Before generating Hooks, read `Brand-Bible/06_Content/Shorts/Hook-Library/Hook-Style-DNA.md` and all approved Hooks. Prefer the owner's accumulated choices instead of restarting stylistic inference. When the owner likes, retains, or approves new Hooks, update the Style DNA; only explicitly approved Hooks become formal learning samples.
-- Store all unapproved `【AI 建議】` Hook batches in `Brand-Bible/06_Content/Shorts/Hook-Review-Queue/`, never in the formal Hook Library. After explicit owner approval, automatically convert selected Hooks to the full template and file them by type in Hook Library; do not collect unapproved Hooks there.
+- Never write, rewrite, optimize, or supplement a Hook, script, CTA, product angle, product benefit, marketing strategy, or story. If supplied planning is insufficient, report only the missing input or footage required; do not invent content.
+- ChatGPT may provide `【AI 建議】` Hook batches. Codex may import, number, and manage them in `Brand-Bible/06_Content/Shorts/Hook-Review-Queue/`, but must not author or alter them. Only the owner may approve a Hook; after approval, Codex may file the exact text into Hook Library and update status metadata.
+- For every script or editing task, follow `Brand-Bible/07_Video/Creative-Editing-Director.md` and output all required video-analysis sections before editing. After footage arrives, complete the edit without changing the supplied creative direction.
 - Reuse approved waist Hooks through `Brand-Bible/06_Content/Shorts/Hook-Library/Waist-Hook-Index.md` for 清涼 V辣褲、清涼小直筒、清涼長褲 and 清涼七分褲. A shared waist Hook does not authorize copying product-specific length, fit, pocket, fabric, or size facts. Text containing `長褲` must not be applied unchanged to 七分褲, and denim remains excluded until owner confirmation.
 - Follow `Brand-Bible/01_Brand/Brand-Rules.md` and the applicable product, fabric, photo, copywriting, video, Shopee, Facebook, and marketing files.
 
