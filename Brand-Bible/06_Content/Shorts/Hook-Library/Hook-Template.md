@@ -4,6 +4,10 @@
 
 # Hook 編號
 
+## 狀態
+
+【AI 建議】
+
 ## 類型
 
 Pain / Comparison / Question / Surprise / Story / Demonstration
@@ -46,7 +50,7 @@ V辣褲
 
 ## Hook
 
-（等待闆娘提供）
+（依商品資料、品牌語言、Product DNA、Brand Bible 與已確認品牌賣點建立）
 
 ## 為什麼有效
 
@@ -55,3 +59,5 @@ V辣褲
 ## 使用注意事項
 
 （等待整理）
+
+闆娘審核通過後，將狀態由 `【AI 建議】` 改為 `【已核准】`。

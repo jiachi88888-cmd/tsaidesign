@@ -32,6 +32,7 @@ Owner-confirmed product facts override every other source. Never use public info
 
 - Do not guess product facts or silently merge conflicting data.
 - Do not fabricate product use stories, customer feedback, sales, measurements, tests, certifications, or performance claims.
+- Codex may proactively propose new TSAIDESIGN Hooks from approved internal sources, but every new Hook must be labeled `【AI 建議】`. Only the owner may change it to `【已核准】`; unapproved Hooks must not be used in final production content.
 - Follow `Brand-Bible/01_Brand/Brand-Rules.md` and the applicable product, fabric, photo, copywriting, video, Shopee, Facebook, and marketing files.
 
 ## Required final report
