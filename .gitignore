@@ -2,3 +2,5 @@
 !.gitignore
 !index.html
 !README.md
+!product-library/
+!product-library/**
