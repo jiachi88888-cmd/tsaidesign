@@ -2,13 +2,13 @@
 
 待完成：
 
-□ Pain Hook
+☑ Pain Hook（VLA-HOOK-001 已建立，待實拍測試）
 
 □ Comparison Hook
 
-□ Question Hook
+☑ Question Hook（VLA-HOOK-002 已建立，待實拍測試）
 
-□ Surprise Hook
+☑ Surprise Hook（VLA-HOOK-003 已建立，待實拍測試）
 
 □ Story Hook
 
