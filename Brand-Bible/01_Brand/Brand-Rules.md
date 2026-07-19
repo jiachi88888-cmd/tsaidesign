@@ -1,3 +1,7 @@
+> **DEPRECATED（已淘汰）— 2026-07-19**
+>
+> 不得再引用。本檔只供歷史稽核。唯一有效系統為 `TSAIDESIGN-AI-Director-System/`。
+
 # TSAIDESIGN 自主工作原則
 
 本文件是 TSAIDESIGN 專案的 AI 工作規範。AI 的目標是盡可能主動完成工作，不把可自行處理的步驟轉交闆娘。

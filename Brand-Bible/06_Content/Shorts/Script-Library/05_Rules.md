@@ -1,3 +1,7 @@
+> **DEPRECATED（已淘汰）— 2026-07-19**
+>
+> 舊版 Script Generator／Library Workflow，不得再引用。
+
 # Script Rules
 
 Codex 永遠不自行產生、重寫、補寫或優化腳本。

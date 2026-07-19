@@ -1,3 +1,7 @@
+> **DEPRECATED（已淘汰）— 2026-07-19**
+>
+> 不得再引用。保留知識已遷移至 `TSAIDESIGN-AI-Director-System/01_Product_DNA/Product_Strength/`。
+
 # TSAIDESIGN Product Strength Knowledge
 
 ## 用途

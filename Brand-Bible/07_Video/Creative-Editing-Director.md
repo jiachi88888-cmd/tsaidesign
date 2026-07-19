@@ -1,3 +1,7 @@
+> **DEPRECATED（已淘汰）— 2026-07-19**
+>
+> 舊版 Director Prompt／Workflow，不得再引用。唯一有效規則為 `TSAIDESIGN-AI-Director-System/00_System/Editing-Brain.md`。
+
 # TSAIDESIGN Creative Editing Director
 
 ## 角色

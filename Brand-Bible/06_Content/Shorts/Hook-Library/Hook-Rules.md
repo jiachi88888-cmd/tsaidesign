@@ -1,3 +1,7 @@
+> **DEPRECATED（已淘汰）— 2026-07-19**
+>
+> 舊版 Hook Generator／Library Workflow，不得再引用。
+
 # Hook Rules
 
 Hook Library 的目的是建立綵設專屬 Hook 資料庫。未來所有綵設短影音先從 Hook 開始，再延伸腳本。
