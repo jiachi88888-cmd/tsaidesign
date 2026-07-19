@@ -18,6 +18,9 @@ Owner-confirmed product facts override every other source. Never use public info
 ## Autonomous workflow
 
 - Inspect the relevant repository files and current Git state first.
+- Prefer suitable GitHub features, installed plugins, existing connectors, and other available tools when they improve efficiency. Use them without asking for routine confirmation.
+- Ask the owner only when the work requires a new login, new authorization, payment, installation of a new tool or plugin, or private information that is not already available.
+- Follow any mandatory platform approval flow, but do not ask the owner to perform steps the available tools can complete.
 - Complete every non-blocked part of the task.
 - Search, organize, edit, validate, repair links, update indexes, and create supporting Markdown or folders without asking for routine confirmation.
 - When public research is needed, use reliable primary or official sources and cite the source or basis.
