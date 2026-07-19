@@ -35,6 +35,7 @@ Owner-confirmed product facts override every other source. Never use public info
 - Codex may proactively propose new TSAIDESIGN Hooks from approved internal sources, but every new Hook must be labeled `【AI 建議】`. Only the owner may change it to `【已核准】`; unapproved Hooks must not be used in final production content.
 - When creating Hooks, provide at least 50 ideas per batch: Pain × 10, Question × 10, Comparison × 10, Story × 10, and Surprise × 10. Do not substitute one category for another. Additional ideas are welcome, but every new Hook remains `【AI 建議】` until the owner selects and approves it.
 - Before generating Hooks, read `Brand-Bible/06_Content/Shorts/Hook-Library/Hook-Style-DNA.md` and all approved Hooks. Prefer the owner's accumulated choices instead of restarting stylistic inference. When the owner likes, retains, or approves new Hooks, update the Style DNA; only explicitly approved Hooks become formal learning samples.
+- Store all unapproved `【AI 建議】` Hook batches in `Brand-Bible/06_Content/Shorts/Hook-Review-Queue/`, never in the formal Hook Library. After explicit owner approval, automatically convert selected Hooks to the full template and file them by type in Hook Library; do not collect unapproved Hooks there.
 - Follow `Brand-Bible/01_Brand/Brand-Rules.md` and the applicable product, fabric, photo, copywriting, video, Shopee, Facebook, and marketing files.
 
 ## Required final report

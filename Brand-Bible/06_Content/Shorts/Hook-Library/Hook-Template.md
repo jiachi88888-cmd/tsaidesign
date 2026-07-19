@@ -1,8 +1,8 @@
 # Hook Template
 
-建立 Hook 前，必須先讀取 `Hook-Style-DNA.md` 與所有 `【已核准】` Hook，再讀取適用商品資料。以下格式用於整理每一個候選 Hook。
+建立 Hook 前，必須先讀取 `Hook-Style-DNA.md` 與所有 `【已核准】` Hook，再讀取適用商品資料。大量 `【AI 建議】` 可先在 `../Hook-Review-Queue/` 使用精簡編號格式供闆娘挑選；闆娘核准後，才用以下完整格式正式收錄。
 
-每一個 Hook 固定使用以下格式：
+每一個正式收錄的 Hook 固定使用以下格式：
 
 # Hook 編號
 
