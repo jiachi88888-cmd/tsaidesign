@@ -64,6 +64,7 @@
 
 ## 推薦Hook
 
+- 共用腰頭 Hook：見 [Waist-Hook-Index.md](../Brand-Bible/06_Content/Shorts/Hook-Library/Waist-Hook-Index.md)。
 - 妳的小腹是不是都被褲子勒成兩層？
 - 為什麼綵設褲子穿一整天，肚子還是很舒服？
 - 很多人以為這件是喇叭褲，其實不是。
