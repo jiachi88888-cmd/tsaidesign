@@ -16,6 +16,8 @@
 
 ## 商品說法對應必拍素材
 
+腳本涉及 Product Strength 時，先讀 [Product Strength Knowledge](../02_Product/Product-Strength-Knowledge/README.md)。對應 Strength 卡片中的必拍素材、建議鏡位、建議景別與必拍動作，優先於本文件的一般規則；不得自行增加該 Strength 的商品知識。
+
 ### 提到「舒服」
 
 - 坐下。

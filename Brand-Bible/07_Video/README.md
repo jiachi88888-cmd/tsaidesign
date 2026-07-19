@@ -6,6 +6,7 @@
 
 ## 執行文件
 
+- [Product Strength Knowledge](../02_Product/Product-Strength-Knowledge/README.md)：腳本證據、必拍素材、鏡位、景別與動作的商品強項依據。
 - [Script.md](Script.md)：ChatGPT 腳本輸入與逐句證據分析。
 - [Opening-Hooks.md](Opening-Hooks.md)：前三秒 Hook 證明方式。
 - [Shot-List.md](Shot-List.md)：必拍素材、鏡位、景別與秒數。
